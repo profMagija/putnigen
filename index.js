@@ -29,7 +29,17 @@ const single_row = d => `
     <button id="r-${d.id}-stampaj">Stampaj</button>
     <button id="r-${d.id}-brisi">Brisi</button>
 </td>
-<td><input type="text" name="r-${d.id}-imeprezime" id="r-${d.id}-imeprezime"></td>
+<td>
+    <p>Prez. i ime: <br><input type="text" name="r-${d.id}-imeprezime" id="r-${d.id}-imeprezime">
+    <p>JMBG: <br><input type="text" name="r-${d.id}-jmbg" id="r-${d.id}-jmbg">
+    <p>Broj LK: <br><input type="text" name="r-${d.id}-brlk" id="r-${d.id}-brlk">
+    <p>Izdata u: <br><input type="text" name="r-${d.id}-mup" id="r-${d.id}-mup">
+</td>
+<td>
+    <p>Stal. adresa: <br><input type="text" name="r-${d.id}-stalnaadresa" id="r-${d.id}-stalnaadresa">
+    <p>Privr. adresa: <br><input type="text" name="r-${d.id}-privadresa" id="r-${d.id}-privadresa">
+    <p>Telefon: <br><input type="text" name="r-${d.id}-telefon" id="r-${d.id}-telefon">
+</td>
 <td>
     <select name="r-${d.id}-status" id="r-${d.id}-status">
         <option value="Saradnik">Saradnik predavac</option>
@@ -38,12 +48,6 @@ const single_row = d => `
         <option value="Asistent">Asistent</option>
     </select>
 </td>
-<td><input type="text" name="r-${d.id}-jmbg" id="r-${d.id}-jmbg" size="13"></td>
-<td><input type="text" name="r-${d.id}-stalnaadresa" id="r-${d.id}-stalnaadresa"></td>
-<td><input type="text" name="r-${d.id}-privadresa" id="r-${d.id}-privadresa"></td>
-<td><input type="text" name="r-${d.id}-brlk" id="r-${d.id}-brlk" size="10"></td>
-<td><input type="text" name="r-${d.id}-mup" id="r-${d.id}-mup"></td>
-<td><input type="tel" name="r-${d.id}-telefon" id="r-${d.id}-telefon" size="13"></td>
 <td>
     <input type="datetime-local" name="r-${d.id}-dolazak" id="r-${d.id}-dolazak"><br>
     <button id="r-${d.id}-set-dolazak">Pocetak seminara</button>
@@ -119,7 +123,7 @@ const single_row = d => `
     Ukupna razdaljina: <input type="text" name="r-${d.id}-razdaljina" id="r-${d.id}-razdaljina" size="5"> <br>
     Cena/Vrsta goriva: <input type="text" name="r-${d.id}-cenag" id="r-${d.id}-cenag" size="3">
     <input type="text" name="r-${d.id}-vrstag" id="r-${d.id}-vrstag" size="3"> <br>
-    Registarski broj: <input type="text" name="r-${d.id}-regbr" id="r-${d.id}-regbr" size="5">
+    Registarski broj: <input type="text" name="r-${d.id}-regbr" id="r-${d.id}-regbr" size="5"> <br>
     <button id="r-${d.id}-spv-brisi">Brisi sve</button>
 </div></td>
 <td><div style="width: max-content;">
