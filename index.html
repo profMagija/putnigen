@@ -11,6 +11,9 @@
 
 <body>
 
+    <button onclick="saradnik_export()">Exportuj saradnike</button>
+    <button onclick="saradnik_import()">Importuj saradnike</button> <br> <br>
+
     Program: <select name="g-program" id="g-program">
         <option value="">Odaberite program</option>
         <option value=""></option>
@@ -38,7 +41,8 @@
         <option value="Naučni&nbsp;dan">Naučni&nbsp;dan</option>
         <option value="PI">PI</option>
         <option value="Petničke&nbsp;sveske">Petničke&nbsp;sveske</option>
-        <option value="Primenjena&nbsp;fizika&nbsp;i&nbsp;elektronika">Primenjena&nbsp;fizika&nbsp;i&nbsp;elektronika</option>
+        <option value="Primenjena&nbsp;fizika&nbsp;i&nbsp;elektronika">Primenjena&nbsp;fizika&nbsp;i&nbsp;elektronika
+        </option>
         <option value="Psihologija">Psihologija</option>
         <option value="Radionica">Radionica</option>
         <option value="Računarstvo">Računarstvo</option>
@@ -49,7 +53,7 @@
     Datum pocetka: <input type="date" name="g-datump" id="g-datump"> <br>
     Datum kraja: <input type="date" name="g-datumk" id="g-datumk"> <br>
     Rukovodilac: <input type="text" name="g-poziv" id="g-poziv"> <br><br>
-    
+
     <button onclick="reset_seminar()">Novi seminar</button> (obrisi sve seminar-speciffic stvari) <br>
 
     <table border="1">
@@ -70,11 +74,11 @@
 
         </tbody>
     </table>
-    
+
     <button onclick="novi_saradnik()">Novi Saradnik</button>
-    
+
     <script>render(true);</script>
-    
+
     <form action="http://magacin.petnica.rs/putnir/konacno.php" method="post" target="_blank" id="submit-form"></form>
 </body>
 
