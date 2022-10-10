@@ -25,120 +25,18 @@ const DNEVNICA_MAP = {
     'Rukovodilac': 850 * 2,
 }
 
-const single_row = d => `
-<td>
-    <button id="r-${d.id}-stampaj">Stampaj</button>
-    <button id="r-${d.id}-brisi">Brisi</button>
-</td>
-<td>
-    <p>Prez. i ime: <br><input type="text" name="r-${d.id}-imeprezime" id="r-${d.id}-imeprezime">
-    <p>JMBG: <br><input type="text" name="r-${d.id}-jmbg" id="r-${d.id}-jmbg">
-    <p>Broj LK: <br><input type="text" name="r-${d.id}-brlk" id="r-${d.id}-brlk">
-    <p>Izdata u: <br><input type="text" name="r-${d.id}-mup" id="r-${d.id}-mup">
-</td>
-<td>
-    <p>Stal. adresa: <br><input type="text" name="r-${d.id}-stalnaadresa" id="r-${d.id}-stalnaadresa">
-    <p>Privr. adresa: <br><input type="text" name="r-${d.id}-privadresa" id="r-${d.id}-privadresa">
-    <p>Telefon: <br><input type="text" name="r-${d.id}-telefon" id="r-${d.id}-telefon">
-</td>
-<td>
-    <select name="r-${d.id}-status" id="r-${d.id}-status">
-        <option value="Saradnik">Saradnik predavac</option>
-        <option value="Stručni">Stručni konsultant</option>
-        <option value="Mentor">Mentor</option>
-        <option value="Asistent">Asistent</option>
-        <option value="Rukovodilac">Rukovodilac</option>
-    </select>
-</td>
-<td>
-    <input type="datetime-local" name="r-${d.id}-dolazak" id="r-${d.id}-dolazak"><br>
-    <button id="r-${d.id}-set-dolazak">Pocetak seminara</button>
-</td>
-<td>
-    <input type="datetime-local" name="r-${d.id}-odlazak" id="r-${d.id}-odlazak"><br>
-    <button id="r-${d.id}-set-odlazak">Kraj seminara</button>
-</td>
-<td><div style="width: max-content;">
-    <input type="text" name="r-${d.id}-od5" id="r-${d.id}-od5" size="10">
-    <input type="text" name="r-${d.id}-do5" id="r-${d.id}-do5" size="10">
-    <select name="r-${d.id}-jvp5" id="r-${d.id}-jvp5">
-        <option></option>
-        <option value="Autobus">Autobus</option>
-        <option value="Voz">Voz</option>
-    </select>
-    <input type="text" name="r-${d.id}-cp5" id="r-${d.id}-cp5" size="4"><br>
-    <input type="text" name="r-${d.id}-od6" id="r-${d.id}-od6" size="10">
-    <input type="text" name="r-${d.id}-do6" id="r-${d.id}-do6" size="10">
-    <select name="r-${d.id}-jvp6" id="r-${d.id}-jvp6">
-        <option></option>
-        <option value="Autobus">Autobus</option>
-        <option value="Voz">Voz</option>
-    </select>
-    <input type="text" name="r-${d.id}-cp6" id="r-${d.id}-cp6" size="4"><br>
-    <input type="text" name="r-${d.id}-od7" id="r-${d.id}-od7" size="10">
-    <input type="text" name="r-${d.id}-do7" id="r-${d.id}-do7" size="10">
-    <select name="r-${d.id}-jvp7" id="r-${d.id}-jvp7">
-        <option></option>
-        <option value="Autobus">Autobus</option>
-        <option value="Voz">Voz</option>
-    </select>
-    <input type="text" name="r-${d.id}-cp7" id="r-${d.id}-cp7" size="4"><br>
-    <input type="text" name="r-${d.id}-od8" id="r-${d.id}-od8" size="10">
-    <input type="text" name="r-${d.id}-do8" id="r-${d.id}-do8" size="10">
-    <select name="r-${d.id}-jvp8" id="r-${d.id}-jvp8">
-        <option></option>
-        <option value="Autobus">Autobus</option>
-        <option value="Voz">Voz</option>
-    </select>
-    <input type="text" name="r-${d.id}-cp8" id="r-${d.id}-cp8" size="4"> <br>
-    <button id="r-${d.id}-jpv-brisi">Brisi sve</button>
-</div></td>
-<td><div style="width: max-content;">
-    <input type="text" name="r-${d.id}-od1" id="r-${d.id}-od1" size="10">
-    <input type="text" name="r-${d.id}-do1" id="r-${d.id}-do1" size="10">
-    <select name="r-${d.id}-vp1" id="r-${d.id}-vp1">
-        <option></option>
-        <option value="Automobil">Automobil</option>
-        <option value="Motocikl">Motocikl</option>
-    </select><br>
-    <input type="text" name="r-${d.id}-od2" id="r-${d.id}-od2" size="10">
-    <input type="text" name="r-${d.id}-do2" id="r-${d.id}-do2" size="10">
-    <select name="r-${d.id}-vp2" id="r-${d.id}-vp2">
-        <option></option>
-        <option value="Automobil">Automobil</option>
-        <option value="Motocikl">Motocikl</option>
-    </select><br>
-    <input type="text" name="r-${d.id}-od3" id="r-${d.id}-od3" size="10">
-    <input type="text" name="r-${d.id}-do3" id="r-${d.id}-do3" size="10">
-    <select name="r-${d.id}-vp3" id="r-${d.id}-vp3">
-        <option></option>
-        <option value="Automobil">Automobil</option>
-        <option value="Motocikl">Motocikl</option>
-    </select><br>
-    <input type="text" name="r-${d.id}-od4" id="r-${d.id}-od4" size="10">
-    <input type="text" name="r-${d.id}-do4" id="r-${d.id}-do4" size="10">
-    <select name="r-${d.id}-vp4" id="r-${d.id}-vp4">
-        <option></option>
-        <option value="Automobil">Automobil</option>
-        <option value="Motocikl">Motocikl</option>
-    </select><br>
-    Ukupna razdaljina: <input type="text" name="r-${d.id}-razdaljina" id="r-${d.id}-razdaljina" size="5"> <br>
-    Cena/Vrsta goriva: <input type="text" name="r-${d.id}-cenag" id="r-${d.id}-cenag" size="3">
-    <input type="text" name="r-${d.id}-vrstag" id="r-${d.id}-vrstag" size="3"> <br>
-    Registarski broj: <input type="text" name="r-${d.id}-regbr" id="r-${d.id}-regbr" size="5"> <br>
-    <button id="r-${d.id}-spv-brisi">Brisi sve</button>
-</div></td>
-<td><div style="width: max-content;">
-    <input type="text" name="r-${d.id}-ostalo1" id="r-${d.id}-ostalo1" size="10">
-    <input type="text" name="r-${d.id}-costalo1" id="r-${d.id}-costalo1" size="5"> <br>
-    <input type="text" name="r-${d.id}-ostalo2" id="r-${d.id}-ostalo2" size="10">
-    <input type="text" name="r-${d.id}-costalo2" id="r-${d.id}-costalo2" size="5"> <br>
-    <input type="text" name="r-${d.id}-ostalo3" id="r-${d.id}-ostalo3" size="10">
-    <input type="text" name="r-${d.id}-costalo3" id="r-${d.id}-costalo3" size="5"> <br>
-    <input type="text" name="r-${d.id}-ostalo4" id="r-${d.id}-ostalo4" size="10">
-    <input type="text" name="r-${d.id}-costalo4" id="r-${d.id}-costalo4" size="5"> <br>
-</div></td>
-`
+let TEMPLATE = '';
+
+function load_template() {
+    const e = document.getElementById('table-body');
+    TEMPLATE = e.innerHTML;
+    // e.innerHTML = '';
+    // console.log(TEMPLATE);
+}
+
+const single_row = d => {
+    return TEMPLATE.replace(/\$\{d\.id\}/g, d.id);
+};
 
 function new_saradnik() {
     const s = {
