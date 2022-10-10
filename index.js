@@ -2,8 +2,8 @@ const R_FIELDS = (
     'imeprezime status jmbg stalnaadresa privadresa brlk mup telefon dolazak odlazak ' +
     'od5 do5 jvp5 cp5 od6 do6 jvp6 cp6 od7 do7 jvp7 cp7 od8 do8 jvp8 cp8 ' +
     'od1 do1 vp1 od2 do2 vp2 od3 do3 vp3 od4 do4 vp4 ' +
-    'razdaljina cenag vrstag regbr ' +
-    'ostalo1 costalo1 ostalo2 costalo2 ostalo3 costalo3 ostalo4 costalo4'
+    'razdaljina cenag vrstag regbr'
+    //'ostalo1 costalo1 ostalo2 costalo2 ostalo3 costalo3 ostalo4 costalo4'
 ).split(' ');
 
 const G_FIELDS = 'program sifrap datump datumk poziv'.split(' ');
@@ -25,120 +25,17 @@ const DNEVNICA_MAP = {
     'Rukovodilac': 850 * 2,
 }
 
-const single_row = d => `
-<td>
-    <button id="r-${d.id}-stampaj">Stampaj</button>
-    <button id="r-${d.id}-brisi">Brisi</button>
-</td>
-<td>
-    <p>Prez. i ime: <br><input type="text" name="r-${d.id}-imeprezime" id="r-${d.id}-imeprezime">
-    <p>JMBG: <br><input type="text" name="r-${d.id}-jmbg" id="r-${d.id}-jmbg">
-    <p>Broj LK: <br><input type="text" name="r-${d.id}-brlk" id="r-${d.id}-brlk">
-    <p>Izdata u: <br><input type="text" name="r-${d.id}-mup" id="r-${d.id}-mup">
-</td>
-<td>
-    <p>Stal. adresa: <br><input type="text" name="r-${d.id}-stalnaadresa" id="r-${d.id}-stalnaadresa">
-    <p>Privr. adresa: <br><input type="text" name="r-${d.id}-privadresa" id="r-${d.id}-privadresa">
-    <p>Telefon: <br><input type="text" name="r-${d.id}-telefon" id="r-${d.id}-telefon">
-</td>
-<td>
-    <select name="r-${d.id}-status" id="r-${d.id}-status">
-        <option value="Saradnik">Saradnik predavac</option>
-        <option value="Stručni">Stručni konsultant</option>
-        <option value="Mentor">Mentor</option>
-        <option value="Asistent">Asistent</option>
-        <option value="Rukovodilac">Rukovodilac</option>
-    </select>
-</td>
-<td>
-    <input type="datetime-local" name="r-${d.id}-dolazak" id="r-${d.id}-dolazak"><br>
-    <button id="r-${d.id}-set-dolazak">Pocetak seminara</button>
-</td>
-<td>
-    <input type="datetime-local" name="r-${d.id}-odlazak" id="r-${d.id}-odlazak"><br>
-    <button id="r-${d.id}-set-odlazak">Kraj seminara</button>
-</td>
-<td><div style="width: max-content;">
-    <input type="text" name="r-${d.id}-od5" id="r-${d.id}-od5" size="10">
-    <input type="text" name="r-${d.id}-do5" id="r-${d.id}-do5" size="10">
-    <select name="r-${d.id}-jvp5" id="r-${d.id}-jvp5">
-        <option></option>
-        <option value="Autobus">Autobus</option>
-        <option value="Voz">Voz</option>
-    </select>
-    <input type="text" name="r-${d.id}-cp5" id="r-${d.id}-cp5" size="4"><br>
-    <input type="text" name="r-${d.id}-od6" id="r-${d.id}-od6" size="10">
-    <input type="text" name="r-${d.id}-do6" id="r-${d.id}-do6" size="10">
-    <select name="r-${d.id}-jvp6" id="r-${d.id}-jvp6">
-        <option></option>
-        <option value="Autobus">Autobus</option>
-        <option value="Voz">Voz</option>
-    </select>
-    <input type="text" name="r-${d.id}-cp6" id="r-${d.id}-cp6" size="4"><br>
-    <input type="text" name="r-${d.id}-od7" id="r-${d.id}-od7" size="10">
-    <input type="text" name="r-${d.id}-do7" id="r-${d.id}-do7" size="10">
-    <select name="r-${d.id}-jvp7" id="r-${d.id}-jvp7">
-        <option></option>
-        <option value="Autobus">Autobus</option>
-        <option value="Voz">Voz</option>
-    </select>
-    <input type="text" name="r-${d.id}-cp7" id="r-${d.id}-cp7" size="4"><br>
-    <input type="text" name="r-${d.id}-od8" id="r-${d.id}-od8" size="10">
-    <input type="text" name="r-${d.id}-do8" id="r-${d.id}-do8" size="10">
-    <select name="r-${d.id}-jvp8" id="r-${d.id}-jvp8">
-        <option></option>
-        <option value="Autobus">Autobus</option>
-        <option value="Voz">Voz</option>
-    </select>
-    <input type="text" name="r-${d.id}-cp8" id="r-${d.id}-cp8" size="4"> <br>
-    <button id="r-${d.id}-jpv-brisi">Brisi sve</button>
-</div></td>
-<td><div style="width: max-content;">
-    <input type="text" name="r-${d.id}-od1" id="r-${d.id}-od1" size="10">
-    <input type="text" name="r-${d.id}-do1" id="r-${d.id}-do1" size="10">
-    <select name="r-${d.id}-vp1" id="r-${d.id}-vp1">
-        <option></option>
-        <option value="Automobil">Automobil</option>
-        <option value="Motocikl">Motocikl</option>
-    </select><br>
-    <input type="text" name="r-${d.id}-od2" id="r-${d.id}-od2" size="10">
-    <input type="text" name="r-${d.id}-do2" id="r-${d.id}-do2" size="10">
-    <select name="r-${d.id}-vp2" id="r-${d.id}-vp2">
-        <option></option>
-        <option value="Automobil">Automobil</option>
-        <option value="Motocikl">Motocikl</option>
-    </select><br>
-    <input type="text" name="r-${d.id}-od3" id="r-${d.id}-od3" size="10">
-    <input type="text" name="r-${d.id}-do3" id="r-${d.id}-do3" size="10">
-    <select name="r-${d.id}-vp3" id="r-${d.id}-vp3">
-        <option></option>
-        <option value="Automobil">Automobil</option>
-        <option value="Motocikl">Motocikl</option>
-    </select><br>
-    <input type="text" name="r-${d.id}-od4" id="r-${d.id}-od4" size="10">
-    <input type="text" name="r-${d.id}-do4" id="r-${d.id}-do4" size="10">
-    <select name="r-${d.id}-vp4" id="r-${d.id}-vp4">
-        <option></option>
-        <option value="Automobil">Automobil</option>
-        <option value="Motocikl">Motocikl</option>
-    </select><br>
-    Ukupna razdaljina: <input type="text" name="r-${d.id}-razdaljina" id="r-${d.id}-razdaljina" size="5"> <br>
-    Cena/Vrsta goriva: <input type="text" name="r-${d.id}-cenag" id="r-${d.id}-cenag" size="3">
-    <input type="text" name="r-${d.id}-vrstag" id="r-${d.id}-vrstag" size="3"> <br>
-    Registarski broj: <input type="text" name="r-${d.id}-regbr" id="r-${d.id}-regbr" size="5"> <br>
-    <button id="r-${d.id}-spv-brisi">Brisi sve</button>
-</div></td>
-<td><div style="width: max-content;">
-    <input type="text" name="r-${d.id}-ostalo1" id="r-${d.id}-ostalo1" size="10">
-    <input type="text" name="r-${d.id}-costalo1" id="r-${d.id}-costalo1" size="5"> <br>
-    <input type="text" name="r-${d.id}-ostalo2" id="r-${d.id}-ostalo2" size="10">
-    <input type="text" name="r-${d.id}-costalo2" id="r-${d.id}-costalo2" size="5"> <br>
-    <input type="text" name="r-${d.id}-ostalo3" id="r-${d.id}-ostalo3" size="10">
-    <input type="text" name="r-${d.id}-costalo3" id="r-${d.id}-costalo3" size="5"> <br>
-    <input type="text" name="r-${d.id}-ostalo4" id="r-${d.id}-ostalo4" size="10">
-    <input type="text" name="r-${d.id}-costalo4" id="r-${d.id}-costalo4" size="5"> <br>
-</div></td>
-`
+let TEMPLATE = '';
+
+function load_template() {
+    const e = document.getElementById('table-body');
+    TEMPLATE = e.innerHTML;
+    e.innerHTML = '';
+}
+
+const single_row = d => {
+    return TEMPLATE.replace(/\$\{d\.id\}/g, d.id);
+};
 
 function new_saradnik() {
     const s = {
@@ -181,6 +78,7 @@ function update() {
 
 function novi_saradnik() {
     DATA.saradnici.push(new_saradnik());
+    update_saradnici();
     render(true);
 }
 
@@ -304,6 +202,7 @@ function stampaj_saradnik(s_id) {
 }
 
 function save_data() {
+    update_saradnici();
     localStorage.setItem('sar-data', JSON.stringify(DATA));
 }
 
@@ -313,7 +212,24 @@ function brisi_saradnik(rm_id, rm_ime) {
     }
 
     DATA.saradnici = DATA.saradnici.filter(x => x.id != rm_id);
+    update_saradnici();
     render(true);
+}
+
+function update_saradnici() {
+    const $tr_izabrani = document.getElementById('trenutni-saradnik');
+    let trenutni = $tr_izabrani.value;
+    
+    $tr_izabrani.innerHTML = '';
+    DATA.saradnici.forEach(x => {
+        const op = document.createElement('option');
+        trenutni = trenutni || x.id;
+        op.value = x.id;
+        op.innerText = x.imeprezime || "<nema ime>";
+        $tr_izabrani.appendChild(op);
+    });
+    
+    $tr_izabrani.value = trenutni;
 }
 
 function opt_set(field_id, value) {
@@ -335,7 +251,7 @@ function brisi_jpv(s_id) {
     render();
 }
 
-function render(full) {
+function render() {
     save_data();
     G_FIELDS.forEach(gf => {
         let vv = document.getElementById(`g-${gf}`);
@@ -345,15 +261,16 @@ function render(full) {
 
     const tb = document.getElementById('table-body');
 
-    if (full) {
-        tb.innerHTML = '';
-    }
+    tb.innerHTML = '';
+    
+    const $tr_izabrani = document.getElementById('trenutni-saradnik');
 
     DATA.saradnici.forEach(sd => {
-        const tr = document.createElement('tr');
-        if (full) {
-            tr.innerHTML = single_row(sd);
-            tb.appendChild(tr);
+        const tr = document.createElement('div');
+        tr.innerHTML = single_row(sd);
+        tb.appendChild(tr);
+        if (sd.id != $tr_izabrani.value) {
+            tr.style.display = "none";
         }
 
         document.getElementById(`r-${sd.id}-stampaj`).onclick = () => stampaj_saradnik(sd.id);
@@ -362,6 +279,9 @@ function render(full) {
         document.getElementById(`r-${sd.id}-set-odlazak`).onclick = () => set_saradnik_end(sd.id);
         document.getElementById(`r-${sd.id}-jpv-brisi`).onclick = () => brisi_jpv(sd.id);
         document.getElementById(`r-${sd.id}-spv-brisi`).onclick = () => brisi_spv(sd.id);
+        
+        document.getElementById(`card-${sd.id}-javni`).style.display = !sd.p_sopstveni ? "" : "none";
+        document.getElementById(`card-${sd.id}-sopstveni`).style.display = sd.p_sopstveni ? "" : "none";
 
         R_FIELDS.forEach(rf => {
             const ie = document.getElementById(`r-${sd.id}-${rf}`);
@@ -384,6 +304,11 @@ function render(full) {
             };
         });
     });
+}
+
+function set_sopstveni(id, sopstveni) {
+    DATA.saradnici.filter(x => x.id == id).forEach(x => x.p_sopstveni = sopstveni);
+    render();
 }
 
 function saradnik_export() {
