@@ -22,7 +22,7 @@ const DNEVNICA_MAP = {
     'Stručni': 850,
     'Mentor': 850 * 2,
     'Asistent': 850,
-    'Rukovodioc': 850 * 5,
+    'Rukovodilac': 850 * 2,
 }
 
 const single_row = d => `
@@ -47,7 +47,7 @@ const single_row = d => `
         <option value="Stručni">Stručni konsultant</option>
         <option value="Mentor">Mentor</option>
         <option value="Asistent">Asistent</option>
-        <option value="Rukovodioc">Rukovodioc</option>
+        <option value="Rukovodilac">Rukovodilac</option>
     </select>
 </td>
 <td>
@@ -270,9 +270,10 @@ function stampaj_saradnik(s_id) {
     formdata.brojcasova = Math.floor((odl - dol) / (1000 * 60 * 60));
     formdata.dnevnica = DNEVNICA_MAP[formdata.status];
 
-    if (s_data.status == "Rukovodioc") {
+    if (s_data.status == "Rukovodilac") {
         formdata.status = "Stručni"
         formdata.poziv = "Jelena Gledić"
+        formdata.brojcasova = Math.floor(formdata.brojcasova * 2.5);
     }
 
     formdata.akontacija = "";
