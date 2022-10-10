@@ -32,7 +32,7 @@
           }
           
           .pretty-card.narrow {
-            @apply md:w-1/3 lg:w-1/6
+            @apply md:w-1/3 xl:w-1/6
           }
           
           
@@ -70,7 +70,7 @@
         </div>
         <div class="pretty-border p-4 mb-4">
             <p class="text-3xl">Informacije o seminaru</p>
-            <div class="grid grid-cols-2">
+            <div class="grid grid-cols-3">
                 <div>
                     <div class="p-2">
                         <label for="g-program">Program:</label>
@@ -115,8 +115,7 @@
                     <div class="p-2">
                         <label for="g-sifrap">Šifra:</label>
                         <input type="text" size="5" name="g-sifrap" id="g-sifrap" /> 
-                        <span>(skraćenica seminara + 1/2 + A/B/C + godina, npr: TEH1A22 - prvi seminar teha za 2022.)</span>
-                        <br>
+                        <abbr title="skraćenica seminara + 1/2 + A/B/C + godina, npr: TEH1A22 - prvi seminar teha za 2022.">(?)</abbr>
                     </div>    
                     
                 </div>
@@ -130,6 +129,8 @@
                         <label for="g-datumk">Datum kraja: </label>        
                         <input type="date" name="g-datumk" id="g-datumk"> <br>
                     </div>
+                </div>
+                <div>
                     
                     <div class="p-2">
                         <label for="g-poziv">Rukovodilac: </label>        
@@ -141,10 +142,9 @@
 
         <button onclick="reset_seminar()">
             Novi seminar
-        </button> (oBriši sve seminar-speciffic stvari) <br>
+        </button> (obriši sve sem ličnih podataka) <br>
         
-        <select id="trenutni-saradnik" onchange="render(true)">
-        </select>
+        <select id="trenutni-saradnik" onchange="render(true)"></select> <button onclick="novi_saradnik()">Novi Saradnik</button>
         
         <div id="table-body">
             <div class="flex flex-wrap pretty-border my-4">
@@ -179,23 +179,23 @@
                         
                         <label for="r-${d.id}-dolazak">Dolazak:</label> <br>
                         <input type="datetime-local" name="r-${d.id}-dolazak" id="r-${d.id}-dolazak" class="w-80"><br>
-                        <button id="r-${d.id}-set-dolazak" class="rounded-lg border-2 border-[#8AAAE5] hover:bg-[#8AAAE5] px-2 my-2 w-full">Dolazi na početak seminara</button>
+                        <button id="r-${d.id}-set-dolazak" class="pretty-border text-sm px-2 mb-4 w-full">Dolazi na početak</button>
                 
                         <label for="r-${d.id}-odlazak">Odlazak:</label> <br>
                         <input type="datetime-local" name="r-${d.id}-odlazak" id="r-${d.id}-odlazak"><br>
-                        <button id="r-${d.id}-set-odlazak" class="rounded-lg border-2 border-[#8AAAE5] hover:bg-[#8AAAE5] px-2 my-2 w-full">Ostaje do kraja seminara</button>
+                        <button id="r-${d.id}-set-odlazak" class="pretty-border text-sm px-2 mb-4 w-full">Ostaje do kraja</button>
                     
                     </div>
                 </div>
-                <div class="pretty-card wide">
-                    <p class="text-2xl">Dolazak javnim prevozom</p>
+                <div class="pretty-card wide" id="card-${d.id}-javni">
+                    <p class="text-2xl">Dolazak javnim prevozom <button class="text-lg" onclick="set_sopstveni('${d.id}', true)">Promeni na sopstveni</button></p>
                     <div class="w-max">
                         
-                        <div class="p-1">
-                            <input type="text" name="r-${d.id}-od5" id="r-${d.id}-od5" size="10" placeholder="Od">
-                            <input type="text" name="r-${d.id}-do5" id="r-${d.id}-do5" size="10" placeholder="Do">
+                        <div class="py-1">
+                            <input type="text" name="r-${d.id}-od5" id="r-${d.id}-od5" size="8" placeholder="Od">
+                            <input type="text" name="r-${d.id}-do5" id="r-${d.id}-do5" size="8" placeholder="Do">
                             
-                            <select name="r-${d.id}-jvp5" id="r-${d.id}-jvp5">
+                            <select class="w-20 text-sm" name="r-${d.id}-jvp5" id="r-${d.id}-jvp5">
                                 <option selected disabled>Tip prevoza</option>
                                 <option value="Autobus">Autobus</option>
                                 <option value="Voz">Voz</option>
@@ -203,20 +203,20 @@
                             
                             <input type="text" name="r-${d.id}-cp5" id="r-${d.id}-cp5" size="4" placeholder="Cena"><br>
                         </div>
-                        <div class="p-1">
-                            <input type="text" name="r-${d.id}-od6" id="r-${d.id}-od6" size="10" placeholder="Od">
-                            <input type="text" name="r-${d.id}-do6" id="r-${d.id}-do6" size="10" placeholder="Do">
-                            <select name="r-${d.id}-jvp6" id="r-${d.id}-jvp6">
+                        <div class="py-1">
+                            <input type="text" name="r-${d.id}-od6" id="r-${d.id}-od6" size="8" placeholder="Od">
+                            <input type="text" name="r-${d.id}-do6" id="r-${d.id}-do6" size="8" placeholder="Do">
+                            <select class="w-20 text-sm" name="r-${d.id}-jvp6" id="r-${d.id}-jvp6">
                                 <option selected disabled>Tip prevoza</option>
                                 <option value="Autobus">Autobus</option>
                                 <option value="Voz">Voz</option>
                             </select>
                             <input type="text" name="r-${d.id}-cp6" id="r-${d.id}-cp6" size="4" placeholder="Cena"><br>
                         </div>
-                        <div class="p-1">
-                            <input type="text" name="r-${d.id}-od7" id="r-${d.id}-od7" size="10" placeholder="Od">
-                            <input type="text" name="r-${d.id}-do7" id="r-${d.id}-do7" size="10" placeholder="Do">
-                            <select name="r-${d.id}-jvp7" id="r-${d.id}-jvp7">
+                        <div class="py-1">
+                            <input type="text" name="r-${d.id}-od7" id="r-${d.id}-od7" size="8" placeholder="Od">
+                            <input type="text" name="r-${d.id}-do7" id="r-${d.id}-do7" size="8" placeholder="Do">
+                            <select class="w-20 text-sm" name="r-${d.id}-jvp7" id="r-${d.id}-jvp7">
                                 <option selected disabled>Tip prevoza</option>
                                 <option value="Autobus">Autobus</option>
                                 <option value="Voz">Voz</option>
@@ -224,10 +224,10 @@
                             <input type="text" name="r-${d.id}-cp7" id="r-${d.id}-cp7" size="4" placeholder="Cena"><br>
                         </div>
                         
-                        <div class="p-1">
-                            <input type="text" name="r-${d.id}-od8" id="r-${d.id}-od8" size="10" placeholder="Od">
-                            <input type="text" name="r-${d.id}-do8" id="r-${d.id}-do8" size="10" placeholder="Do">
-                            <select name="r-${d.id}-jvp8" id="r-${d.id}-jvp8">
+                        <div class="py-1">
+                            <input type="text" name="r-${d.id}-od8" id="r-${d.id}-od8" size="8" placeholder="Od">
+                            <input type="text" name="r-${d.id}-do8" id="r-${d.id}-do8" size="8" placeholder="Do">
+                            <select class="w-20 text-sm" name="r-${d.id}-jvp8" id="r-${d.id}-jvp8">
                                 <option selected disabled>Tip prevoza</option>
                                 <option value="Autobus">Autobus</option>
                                 <option value="Voz">Voz</option>
@@ -239,8 +239,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="pretty-card wide">
-                    <p class="text-2xl">Dolazak sopstvenim vozilom</p>
+                <div class="pretty-card wide" id="card-${d.id}-sopstveni">
+                    <p class="text-2xl">Dolazak sopstvenim vozilom <button class="text-lg" onclick="set_sopstveni('${d.id}', false)">Promeni na javni</button></p>
                     <div class="w-max">
                         <input type="text" name="r-${d.id}-od1" id="r-${d.id}-od1" size="10" placeholder="Od">
                         <input type="text" name="r-${d.id}-do1" id="r-${d.id}-do1" size="10" placeholder="Do">
@@ -277,15 +277,14 @@
                         <button id="r-${d.id}-spv-brisi">Briši sve</button>
                     </div>
                 </div>
-                <div class="pretty-card">
+                <div class="pretty-card narrow">
                     <div>
-                        <button id="r-${d.id}-stampaj">Štampaj nalog</button>
-                        <button id="r-${d.id}-brisi">Obriši saradnika</button> <br> <br>
+                        <button class="block w-full mb-3" id="r-${d.id}-stampaj">Štampaj nalog</button>
+                        <button class="block w-full mb-3 bg-red-300" id="r-${d.id}-brisi">Obriši saradnika</button> <br> <br>
                     </div>
                 </div>
             </div> 
         </div>
-    <button onclick="novi_saradnik()">Novi Saradnik</button>
     <script>load_template(); update_saradnici(); render(true);</script>
 
     <form action="http://magacin.petnica.rs/putnir/konacno.php" method="post" target="_blank" id="submit-form"></form>

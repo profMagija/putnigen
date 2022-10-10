@@ -218,13 +218,14 @@ function brisi_saradnik(rm_id, rm_ime) {
 
 function update_saradnici() {
     const $tr_izabrani = document.getElementById('trenutni-saradnik');
-    const trenutni = $tr_izabrani.value;
+    let trenutni = $tr_izabrani.value;
     
     $tr_izabrani.innerHTML = '';
     DATA.saradnici.forEach(x => {
         const op = document.createElement('option');
+        trenutni = trenutni || x.id;
         op.value = x.id;
-        op.innerText = x.imeprezime + "(" + x.id + ")";
+        op.innerText = x.imeprezime || "<nema ime>";
         $tr_izabrani.appendChild(op);
     });
     
@@ -278,6 +279,9 @@ function render() {
         document.getElementById(`r-${sd.id}-set-odlazak`).onclick = () => set_saradnik_end(sd.id);
         document.getElementById(`r-${sd.id}-jpv-brisi`).onclick = () => brisi_jpv(sd.id);
         document.getElementById(`r-${sd.id}-spv-brisi`).onclick = () => brisi_spv(sd.id);
+        
+        document.getElementById(`card-${sd.id}-javni`).style.display = !sd.p_sopstveni ? "" : "none";
+        document.getElementById(`card-${sd.id}-sopstveni`).style.display = sd.p_sopstveni ? "" : "none";
 
         R_FIELDS.forEach(rf => {
             const ie = document.getElementById(`r-${sd.id}-${rf}`);
@@ -300,6 +304,11 @@ function render() {
             };
         });
     });
+}
+
+function set_sopstveni(id, sopstveni) {
+    DATA.saradnici.filter(x => x.id == id).forEach(x => x.p_sopstveni = sopstveni);
+    render();
 }
 
 function saradnik_export() {
