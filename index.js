@@ -2,8 +2,8 @@ const R_FIELDS = (
     'imeprezime status jmbg stalnaadresa privadresa brlk mup telefon dolazak odlazak ' +
     'od5 do5 jvp5 cp5 od6 do6 jvp6 cp6 od7 do7 jvp7 cp7 od8 do8 jvp8 cp8 ' +
     'od1 do1 vp1 od2 do2 vp2 od3 do3 vp3 od4 do4 vp4 ' +
-    'razdaljina cenag vrstag regbr ' +
-    'ostalo1 costalo1 ostalo2 costalo2 ostalo3 costalo3 ostalo4 costalo4'
+    'razdaljina cenag vrstag regbr'
+    //'ostalo1 costalo1 ostalo2 costalo2 ostalo3 costalo3 ostalo4 costalo4'
 ).split(' ');
 
 const G_FIELDS = 'program sifrap datump datumk poziv'.split(' ');
@@ -30,8 +30,7 @@ let TEMPLATE = '';
 function load_template() {
     const e = document.getElementById('table-body');
     TEMPLATE = e.innerHTML;
-    // e.innerHTML = '';
-    // console.log(TEMPLATE);
+    e.innerHTML = '';
 }
 
 const single_row = d => {
@@ -79,6 +78,7 @@ function update() {
 
 function novi_saradnik() {
     DATA.saradnici.push(new_saradnik());
+    update_saradnici();
     render(true);
 }
 
@@ -202,6 +202,7 @@ function stampaj_saradnik(s_id) {
 }
 
 function save_data() {
+    update_saradnici();
     localStorage.setItem('sar-data', JSON.stringify(DATA));
 }
 
@@ -211,7 +212,23 @@ function brisi_saradnik(rm_id, rm_ime) {
     }
 
     DATA.saradnici = DATA.saradnici.filter(x => x.id != rm_id);
+    update_saradnici();
     render(true);
+}
+
+function update_saradnici() {
+    const $tr_izabrani = document.getElementById('trenutni-saradnik');
+    const trenutni = $tr_izabrani.value;
+    
+    $tr_izabrani.innerHTML = '';
+    DATA.saradnici.forEach(x => {
+        const op = document.createElement('option');
+        op.value = x.id;
+        op.innerText = x.imeprezime + "(" + x.id + ")";
+        $tr_izabrani.appendChild(op);
+    });
+    
+    $tr_izabrani.value = trenutni;
 }
 
 function opt_set(field_id, value) {
@@ -233,8 +250,7 @@ function brisi_jpv(s_id) {
     render();
 }
 
-function render(full) {
-    return;
+function render() {
     save_data();
     G_FIELDS.forEach(gf => {
         let vv = document.getElementById(`g-${gf}`);
@@ -244,15 +260,16 @@ function render(full) {
 
     const tb = document.getElementById('table-body');
 
-    if (full) {
-        tb.innerHTML = '';
-    }
+    tb.innerHTML = '';
+    
+    const $tr_izabrani = document.getElementById('trenutni-saradnik');
 
     DATA.saradnici.forEach(sd => {
-        const tr = document.createElement('tr');
-        if (full) {
-            tr.innerHTML = single_row(sd);
-            tb.appendChild(tr);
+        const tr = document.createElement('div');
+        tr.innerHTML = single_row(sd);
+        tb.appendChild(tr);
+        if (sd.id != $tr_izabrani.value) {
+            tr.style.display = "none";
         }
 
         document.getElementById(`r-${sd.id}-stampaj`).onclick = () => stampaj_saradnik(sd.id);

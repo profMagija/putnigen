@@ -28,11 +28,11 @@
           }
           
           .pretty-card.wide {
-            @apply xl:w-1/2
+            @apply xl:w-1/3
           }
           
           .pretty-card.narrow {
-            @apply md:w-1/2 lg:w-1/3
+            @apply md:w-1/3 lg:w-1/6
           }
           
           
@@ -142,6 +142,10 @@
         <button onclick="reset_seminar()">
             Novi seminar
         </button> (oBriši sve seminar-speciffic stvari) <br>
+        
+        <select id="trenutni-saradnik" onchange="render(true)">
+        </select>
+        
         <div id="table-body">
             <div class="flex flex-wrap pretty-border my-4">
                 <div class="pretty-card narrow full-inputs">
@@ -273,20 +277,7 @@
                         <button id="r-${d.id}-spv-brisi">Briši sve</button>
                     </div>
                 </div>
-                <div class="pretty-card wide">
-                    <p class="text-2xl">Ostalo</p>
-                    <div class="w-max">
-                        <input type="text" placeholder="Opis" name="r-${d.id}-ostalo1" id="r-${d.id}-ostalo1" size="20">
-                        <input type="text" placeholder="Iznos" name="r-${d.id}-costalo1" id="r-${d.id}-costalo1" size="10"> <br>
-                        <input type="text" placeholder="Opis" name="r-${d.id}-ostalo2" id="r-${d.id}-ostalo2" size="20">
-                        <input type="text" placeholder="Iznos" name="r-${d.id}-costalo2" id="r-${d.id}-costalo2" size="10"> <br>
-                        <input type="text" placeholder="Opis" name="r-${d.id}-ostalo3" id="r-${d.id}-ostalo3" size="20">
-                        <input type="text" placeholder="Iznos" name="r-${d.id}-costalo3" id="r-${d.id}-costalo3" size="10"> <br>
-                        <input type="text" placeholder="Opis" name="r-${d.id}-ostalo4" id="r-${d.id}-ostalo4" size="20">
-                        <input type="text" placeholder="Iznos" name="r-${d.id}-costalo4" id="r-${d.id}-costalo4" size="10"> <br>
-                    </div>
-                </div>
-                <div class="pretty-card wide">
+                <div class="pretty-card">
                     <div>
                         <button id="r-${d.id}-stampaj">Štampaj nalog</button>
                         <button id="r-${d.id}-brisi">Obriši saradnika</button> <br> <br>
@@ -295,7 +286,7 @@
             </div> 
         </div>
     <button onclick="novi_saradnik()">Novi Saradnik</button>
-    <script>load_template(); render(true);</script>
+    <script>load_template(); update_saradnici(); render(true);</script>
 
     <form action="http://magacin.petnica.rs/putnir/konacno.php" method="post" target="_blank" id="submit-form"></form>
 </body>
