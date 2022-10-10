@@ -336,6 +336,7 @@ function brisi_jpv(s_id) {
 }
 
 function render(full) {
+    return;
     save_data();
     G_FIELDS.forEach(gf => {
         let vv = document.getElementById(`g-${gf}`);

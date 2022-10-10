@@ -5,63 +5,223 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PutniGen</title>
+    <title>Generator putnog naloga</title>
     <script src="./index.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        @layer base  {
+          button {
+            @apply rounded-lg border-2 border-[#8AAAE5] hover:bg-[#8AAAE5] p-2;
+          }
+          input {
+            @apply rounded-lg border-2 border-[#8AAAE5] p-1
+          }
+        }
+      </style>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                babyblue: '#8AAAE5',
+              }
+            }
+          }
+        }
+      </script>
 </head>
 
-<body>
+<body class="bg-gray-50 p-8">
+    <div>
+        <p class="text-4xl text-center">Generator putnog naloga</p>
+    </div>
+    
+    <div>
+        <button onclick="saradnik_export()">Exportuj saradnike</button>
+        <button onclick="saradnik_import()">Importuj saradnike</button> <br> <br>
+    </div>
+    
+    <div>
+        <div class="p-2">
+            <label for="g-program">Program:</label>
+            <select name="g-program" id="g-program">
+                <option value="">Odaberite program</option>
+                <option value=""></option>
+                <option value="ALL">ALL</option>
+                <option value="Arheologija">Arheologija</option>
+                <option value="Astronomija">Astronomija</option>
+                <option value="Biologija">Biologija</option>
+                <option value="DRU">DRU</option>
+                <option value="EBH">EBH</option>
+                <option value="Eko-seminar">Eko-seminar</option>
+                <option value="Exploratorium">Exploratorium</option>
+                <option value="Fizika">Fizika</option>
+                <option value="Foto">Foto</option>
+                <option value="Geografija">Geografija</option>
+                <option value="Geologija">Geologija</option>
+                <option value="Geologija&nbsp;i&nbsp;hidrohemija">Geologija&nbsp;i&nbsp;hidrohemija</option>
+                <option value="Hemija">Hemija</option>
+                <option value="Humana&nbsp;biohemija">Humana&nbsp;biohemija</option>
+                <option value="Istorija">Istorija</option>
+                <option value="LNŠ">LNŠ</option>
+                <option value="Lingvistika">Lingvistika</option>
+                <option value="Matematika">Matematika</option>
+                <option value="Molekularna&nbsp;biologija">Molekularna&nbsp;biologija</option>
+                <option value="Nastavnički&nbsp;seminar">Nastavnički&nbsp;seminar</option>
+                <option value="Naučni&nbsp;dan">Naučni&nbsp;dan</option>
+                <option value="PI">PI</option>
+                <option value="Petničke&nbsp;sveske">Petničke&nbsp;sveske</option>
+                <option value="Primenjena&nbsp;fizika&nbsp;i&nbsp;elektronika">Primenjena&nbsp;fizika&nbsp;i&nbsp;elektronika
+                </option>
+                <option value="Psihologija">Psihologija</option>
+                <option value="Radionica">Radionica</option>
+                <option value="Računarstvo">Računarstvo</option>
+                <option value="Sociokulturna&nbsp;antropologija">Sociokulturna&nbsp;antropologija</option>
+                <option value="Multidisciplinarni seminar C odeljenja">Multidisciplinarni seminar C odeljenja</option>
+                <option value="TEH">TEH</option><br>
+            </select><br>
+        </div>
+        
+        <div class="p-2">
+            <label for="g-sifrap">Šifra:</label>
+            <input type="text" size="5" name="g-sifrap" id="g-sifrap" /> 
+            <span>(skraćenica seminara + 1/2 + A/B/C + godina, npr: TEH1A22 - prvi seminar teha za 2022.)</span>
+            <br>
+        </div>    
+        
+        <div class="p-2">
+            <label for="g-datump">Datum početka: </label>        
+            <input type="date" name="g-datump" id="g-datump"> <br>
+        </div>    
+        
+        <div class="p-2">
+            <label for="g-datumk">Datum kraja: </label>        
+            <input type="date" name="g-datumk" id="g-datumk"> <br>
+        </div>
+        
+        <div class="p-2">
+            <label for="g-poziv">Rukovodilac: </label>        
+            <input type="text" name="g-poziv" id="g-poziv" > <br><br>
+        </div>
+    </div>
 
-    <button onclick="saradnik_export()">Exportuj saradnike</button>
-    <button onclick="saradnik_import()">Importuj saradnike</button> <br> <br>
+    <button onclick="reset_seminar()">
+        Novi seminar
+    </button> (obrisi sve seminar-speciffic stvari) <br>
 
-    Program: <select name="g-program" id="g-program">
-        <option value="">Odaberite program</option>
-        <option value=""></option>
-        <option value="ALL">ALL</option>
-        <option value="Arheologija">Arheologija</option>
-        <option value="Astronomija">Astronomija</option>
-        <option value="Biologija">Biologija</option>
-        <option value="DRU">DRU</option>
-        <option value="EBH">EBH</option>
-        <option value="Eko-seminar">Eko-seminar</option>
-        <option value="Exploratorium">Exploratorium</option>
-        <option value="Fizika">Fizika</option>
-        <option value="Foto">Foto</option>
-        <option value="Geografija">Geografija</option>
-        <option value="Geologija">Geologija</option>
-        <option value="Geologija&nbsp;i&nbsp;hidrohemija">Geologija&nbsp;i&nbsp;hidrohemija</option>
-        <option value="Hemija">Hemija</option>
-        <option value="Humana&nbsp;biohemija">Humana&nbsp;biohemija</option>
-        <option value="Istorija">Istorija</option>
-        <option value="LNŠ">LNŠ</option>
-        <option value="Lingvistika">Lingvistika</option>
-        <option value="Matematika">Matematika</option>
-        <option value="Molekularna&nbsp;biologija">Molekularna&nbsp;biologija</option>
-        <option value="Nastavnički&nbsp;seminar">Nastavnički&nbsp;seminar</option>
-        <option value="Naučni&nbsp;dan">Naučni&nbsp;dan</option>
-        <option value="PI">PI</option>
-        <option value="Petničke&nbsp;sveske">Petničke&nbsp;sveske</option>
-        <option value="Primenjena&nbsp;fizika&nbsp;i&nbsp;elektronika">Primenjena&nbsp;fizika&nbsp;i&nbsp;elektronika
-        </option>
-        <option value="Psihologija">Psihologija</option>
-        <option value="Radionica">Radionica</option>
-        <option value="Računarstvo">Računarstvo</option>
-        <option value="Sociokulturna&nbsp;antropologija">Sociokulturna&nbsp;antropologija</option>
-        <option value="Multidisciplinarni seminar C odeljenja">Multidisciplinarni seminar C odeljenja</option>
-        <option value="TEH">TEH</option><br>
-    </select><br>
-    Šifra: <input type="text" size="5" name="g-sifrap" id="g-sifrap" class="tekstPolje" /> <br>
-    Datum pocetka: <input type="date" name="g-datump" id="g-datump"> <br>
-    Datum kraja: <input type="date" name="g-datumk" id="g-datumk"> <br>
-    Rukovodilac: <input type="text" name="g-poziv" id="g-poziv"> <br><br>
+    <!-- <div class="p-4 border-2 border-[#8AAAE5] mt-4">
+        <table class="">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Licni podaci</th>
+                    <th>Kontakt podaci</th>
+                    <th>Status</th>
+                    <th>Dolazak</th>
+                    <th>Odlazak</th>
+                    <th>Bus / Voz (od, do, vrsta, cena)</th>
+                    <th>Sopstveno vozilo (od, do, vrsta)</th>
+                    <th>Ostalo</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
 
-    <button onclick="reset_seminar()">Novi seminar</button> (obrisi sve seminar-speciffic stvari) <br>
-
-    <table border="1">
+            </tbody>
+        </table>
+    </div> -->
+    
+    
+    <div class="flex">
+        <div class="border-2 border-[#8AAAE5] rounded-lg w-min p-4 m-4 ">
+            <p class="text-2xl">Lični podaci</p>
+            <div>
+                <p>Prez. i ime: <br><input type="text" name="r-${d.id}-imeprezime" id="r-${d.id}-imeprezime">
+                <p>JMBG: <br><input type="text" name="r-${d.id}-jmbg" id="r-${d.id}-jmbg">
+                <p>Broj LK: <br><input type="text" name="r-${d.id}-brlk" id="r-${d.id}-brlk">
+                <p>Izdata u: <br><input type="text" name="r-${d.id}-mup" id="r-${d.id}-mup">
+            </div>
+        </div>
+        <div class="border-2 border-[#8AAAE5] rounded-lg w-min p-4 m-4 ">
+            <p class="text-2xl">Kontakt podaci</p>
+            <div>
+                <p>Stal. adresa: <br><input type="text" name="r-${d.id}-stalnaadresa" id="r-${d.id}-stalnaadresa">
+                <p>Privr. adresa: <br><input type="text" name="r-${d.id}-privadresa" id="r-${d.id}-privadresa">
+                <p>Telefon: <br><input type="text" name="r-${d.id}-telefon" id="r-${d.id}-telefon">
+            </div>
+        </div>
+        <div class="border-2 border-[#8AAAE5] rounded-lg w-max p-4 m-4 ">
+            <p class="text-2xl">Opšte</p>
+            <div>
+                <div class="p-2">
+                    <label for="r-${d.id}-status">Status:</label>
+                    <select name="r-${d.id}-status" id="r-${d.id}-status">
+                        <option value="Saradnik">Saradnik predavac</option>
+                        <option value="Stručni">Stručni konsultant</option>
+                        <option value="Mentor">Mentor</option>
+                        <option value="Asistent">Asistent</option>
+                        <option value="Rukovodilac">Rukovodilac</option>
+                    </select>
+                </div>
+                
+                <div class="p-2">
+                    <label for="r-${d.id}-dolazak">Dolazak:</label>
+                    <input type="datetime-local" name="r-${d.id}-dolazak" id="r-${d.id}-dolazak"><br>
+                    <button id="r-${d.id}-set-dolazak" class="rounded-lg border-2 border-[#8AAAE5] hover:bg-[#8AAAE5] px-2">Dolazi na početak seminara</button>
+                </div>
+            
+                <div class="p-2">
+                    <label for="r-${d.id}-odlazak">Odlazak:</label>
+                    <input type="datetime-local" name="r-${d.id}-odlazak" id="r-${d.id}-odlazak"><br>
+                    <button id="r-${d.id}-set-odlazak" class="rounded-lg border-2 border-[#8AAAE5] hover:bg-[#8AAAE5] px-2">Ostaje do kraja seminara</button>
+                </div>
+            
+            </div>
+        </div>
+        <div class="border-2 border-[#8AAAE5] rounded-lg w-max p-4 m-4 ">
+            <p class="text-2xl">Dolazak javnim prevozom</p>
+            <div class="w-max">
+                <input type="text" name="r-${d.id}-od5" id="r-${d.id}-od5" size="10">
+                <input type="text" name="r-${d.id}-do5" id="r-${d.id}-do5" size="10">
+                <select name="r-${d.id}-jvp5" id="r-${d.id}-jvp5">
+                    <option></option>
+                    <option value="Autobus">Autobus</option>
+                    <option value="Voz">Voz</option>
+                </select>
+                <input type="text" name="r-${d.id}-cp5" id="r-${d.id}-cp5" size="4"><br>
+                <input type="text" name="r-${d.id}-od6" id="r-${d.id}-od6" size="10">
+                <input type="text" name="r-${d.id}-do6" id="r-${d.id}-do6" size="10">
+                <select name="r-${d.id}-jvp6" id="r-${d.id}-jvp6">
+                    <option></option>
+                    <option value="Autobus">Autobus</option>
+                    <option value="Voz">Voz</option>
+                </select>
+                <input type="text" name="r-${d.id}-cp6" id="r-${d.id}-cp6" size="4"><br>
+                <input type="text" name="r-${d.id}-od7" id="r-${d.id}-od7" size="10">
+                <input type="text" name="r-${d.id}-do7" id="r-${d.id}-do7" size="10">
+                <select name="r-${d.id}-jvp7" id="r-${d.id}-jvp7">
+                    <option></option>
+                    <option value="Autobus">Autobus</option>
+                    <option value="Voz">Voz</option>
+                </select>
+                <input type="text" name="r-${d.id}-cp7" id="r-${d.id}-cp7" size="4"><br>
+                <input type="text" name="r-${d.id}-od8" id="r-${d.id}-od8" size="10">
+                <input type="text" name="r-${d.id}-do8" id="r-${d.id}-do8" size="10">
+                <select name="r-${d.id}-jvp8" id="r-${d.id}-jvp8">
+                    <option></option>
+                    <option value="Autobus">Autobus</option>
+                    <option value="Voz">Voz</option>
+                </select>
+                <input type="text" name="r-${d.id}-cp8" id="r-${d.id}-cp8" size="4"> <br>
+                <button id="r-${d.id}-jpv-brisi">Brisi sve</button>
+            </div>
+        </div>
+    </div>
+    
+    <table class="">
         <thead>
             <tr>
                 <th></th>
-                <th>Licni podaci</th>
+                <th>Lični podaci</th>
                 <th>Kontakt podaci</th>
                 <th>Status</th>
                 <th>Dolazak</th>
@@ -72,11 +232,122 @@
             </tr>
         </thead>
         <tbody id="table-body">
-
+            <td>
+                <button id="r-${d.id}-stampaj">Stampaj</button>
+                <button id="r-${d.id}-brisi">Brisi</button>
+            </td>
+            <td>
+                <p>Prez. i ime: <br><input type="text" name="r-${d.id}-imeprezime" id="r-${d.id}-imeprezime">
+                <p>JMBG: <br><input type="text" name="r-${d.id}-jmbg" id="r-${d.id}-jmbg">
+                <p>Broj LK: <br><input type="text" name="r-${d.id}-brlk" id="r-${d.id}-brlk">
+                <p>Izdata u: <br><input type="text" name="r-${d.id}-mup" id="r-${d.id}-mup">
+            </td>
+            <td>
+                <p>Stal. adresa: <br><input type="text" name="r-${d.id}-stalnaadresa" id="r-${d.id}-stalnaadresa">
+                <p>Privr. adresa: <br><input type="text" name="r-${d.id}-privadresa" id="r-${d.id}-privadresa">
+                <p>Telefon: <br><input type="text" name="r-${d.id}-telefon" id="r-${d.id}-telefon">
+            </td>
+            <td>
+                <select name="r-${d.id}-status" id="r-${d.id}-status">
+                    <option value="Saradnik">Saradnik predavac</option>
+                    <option value="Stručni">Stručni konsultant</option>
+                    <option value="Mentor">Mentor</option>
+                    <option value="Asistent">Asistent</option>
+                    <option value="Rukovodilac">Rukovodilac</option>
+                </select>
+            </td>
+            <td>
+                <input type="datetime-local" name="r-${d.id}-dolazak" id="r-${d.id}-dolazak"><br>
+                <button id="r-${d.id}-set-dolazak">Pocetak seminara</button>
+            </td>
+            <td>
+                <input type="datetime-local" name="r-${d.id}-odlazak" id="r-${d.id}-odlazak"><br>
+                <button id="r-${d.id}-set-odlazak">Kraj seminara</button>
+            </td>
+            <td><div style="width: max-content;">
+                <input type="text" name="r-${d.id}-od5" id="r-${d.id}-od5" size="10">
+                <input type="text" name="r-${d.id}-do5" id="r-${d.id}-do5" size="10">
+                <select name="r-${d.id}-jvp5" id="r-${d.id}-jvp5">
+                    <option></option>
+                    <option value="Autobus">Autobus</option>
+                    <option value="Voz">Voz</option>
+                </select>
+                <input type="text" name="r-${d.id}-cp5" id="r-${d.id}-cp5" size="4"><br>
+                <input type="text" name="r-${d.id}-od6" id="r-${d.id}-od6" size="10">
+                <input type="text" name="r-${d.id}-do6" id="r-${d.id}-do6" size="10">
+                <select name="r-${d.id}-jvp6" id="r-${d.id}-jvp6">
+                    <option></option>
+                    <option value="Autobus">Autobus</option>
+                    <option value="Voz">Voz</option>
+                </select>
+                <input type="text" name="r-${d.id}-cp6" id="r-${d.id}-cp6" size="4"><br>
+                <input type="text" name="r-${d.id}-od7" id="r-${d.id}-od7" size="10">
+                <input type="text" name="r-${d.id}-do7" id="r-${d.id}-do7" size="10">
+                <select name="r-${d.id}-jvp7" id="r-${d.id}-jvp7">
+                    <option></option>
+                    <option value="Autobus">Autobus</option>
+                    <option value="Voz">Voz</option>
+                </select>
+                <input type="text" name="r-${d.id}-cp7" id="r-${d.id}-cp7" size="4"><br>
+                <input type="text" name="r-${d.id}-od8" id="r-${d.id}-od8" size="10">
+                <input type="text" name="r-${d.id}-do8" id="r-${d.id}-do8" size="10">
+                <select name="r-${d.id}-jvp8" id="r-${d.id}-jvp8">
+                    <option></option>
+                    <option value="Autobus">Autobus</option>
+                    <option value="Voz">Voz</option>
+                </select>
+                <input type="text" name="r-${d.id}-cp8" id="r-${d.id}-cp8" size="4"> <br>
+                <button id="r-${d.id}-jpv-brisi">Brisi sve</button>
+            </div></td>
+            <td><div style="width: max-content;">
+                <input type="text" name="r-${d.id}-od1" id="r-${d.id}-od1" size="10">
+                <input type="text" name="r-${d.id}-do1" id="r-${d.id}-do1" size="10">
+                <select name="r-${d.id}-vp1" id="r-${d.id}-vp1">
+                    <option></option>
+                    <option value="Automobil">Automobil</option>
+                    <option value="Motocikl">Motocikl</option>
+                </select><br>
+                <input type="text" name="r-${d.id}-od2" id="r-${d.id}-od2" size="10">
+                <input type="text" name="r-${d.id}-do2" id="r-${d.id}-do2" size="10">
+                <select name="r-${d.id}-vp2" id="r-${d.id}-vp2">
+                    <option></option>
+                    <option value="Automobil">Automobil</option>
+                    <option value="Motocikl">Motocikl</option>
+                </select><br>
+                <input type="text" name="r-${d.id}-od3" id="r-${d.id}-od3" size="10">
+                <input type="text" name="r-${d.id}-do3" id="r-${d.id}-do3" size="10">
+                <select name="r-${d.id}-vp3" id="r-${d.id}-vp3">
+                    <option></option>
+                    <option value="Automobil">Automobil</option>
+                    <option value="Motocikl">Motocikl</option>
+                </select><br>
+                <input type="text" name="r-${d.id}-od4" id="r-${d.id}-od4" size="10">
+                <input type="text" name="r-${d.id}-do4" id="r-${d.id}-do4" size="10">
+                <select name="r-${d.id}-vp4" id="r-${d.id}-vp4">
+                    <option></option>
+                    <option value="Automobil">Automobil</option>
+                    <option value="Motocikl">Motocikl</option>
+                </select><br>
+                Ukupna razdaljina: <input type="text" name="r-${d.id}-razdaljina" id="r-${d.id}-razdaljina" size="5"> <br>
+                Cena/Vrsta goriva: <input type="text" name="r-${d.id}-cenag" id="r-${d.id}-cenag" size="3">
+                <input type="text" name="r-${d.id}-vrstag" id="r-${d.id}-vrstag" size="3"> <br>
+                Registarski broj: <input type="text" name="r-${d.id}-regbr" id="r-${d.id}-regbr" size="5"> <br>
+                <button id="r-${d.id}-spv-brisi">Brisi sve</button>
+            </div></td>
+            <td><div style="width: max-content;">
+                <input type="text" name="r-${d.id}-ostalo1" id="r-${d.id}-ostalo1" size="10">
+                <input type="text" name="r-${d.id}-costalo1" id="r-${d.id}-costalo1" size="5"> <br>
+                <input type="text" name="r-${d.id}-ostalo2" id="r-${d.id}-ostalo2" size="10">
+                <input type="text" name="r-${d.id}-costalo2" id="r-${d.id}-costalo2" size="5"> <br>
+                <input type="text" name="r-${d.id}-ostalo3" id="r-${d.id}-ostalo3" size="10">
+                <input type="text" name="r-${d.id}-costalo3" id="r-${d.id}-costalo3" size="5"> <br>
+                <input type="text" name="r-${d.id}-ostalo4" id="r-${d.id}-ostalo4" size="10">
+                <input type="text" name="r-${d.id}-costalo4" id="r-${d.id}-costalo4" size="5"> <br>
+            </div></td>
         </tbody>
     </table>
-
-    <button onclick="novi_saradnik()">Novi Saradnik</button>
+    
+    <!-- <button onclick="novi_saradnik()">Novi Saradnik</button> -->
 
     <script>render(true);</script>
 
