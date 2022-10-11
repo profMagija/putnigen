@@ -219,17 +219,19 @@ function brisi_saradnik(rm_id, rm_ime) {
 function update_saradnici() {
     const $tr_izabrani = document.getElementById('trenutni-saradnik');
     let trenutni = $tr_izabrani.value;
-    
+    let prvi = '';
+
     $tr_izabrani.innerHTML = '';
     DATA.saradnici.forEach(x => {
         const op = document.createElement('option');
         trenutni = trenutni || x.id;
+        prvi = prvi || x.id;
         op.value = x.id;
         op.innerText = x.imeprezime || "<nema ime>";
         $tr_izabrani.appendChild(op);
     });
-    
-    $tr_izabrani.value = trenutni;
+
+    $tr_izabrani.value = trenutni || prvi;
 }
 
 function opt_set(field_id, value) {
@@ -262,7 +264,7 @@ function render() {
     const tb = document.getElementById('table-body');
 
     tb.innerHTML = '';
-    
+
     const $tr_izabrani = document.getElementById('trenutni-saradnik');
 
     DATA.saradnici.forEach(sd => {
@@ -279,7 +281,7 @@ function render() {
         document.getElementById(`r-${sd.id}-set-odlazak`).onclick = () => set_saradnik_end(sd.id);
         document.getElementById(`r-${sd.id}-jpv-brisi`).onclick = () => brisi_jpv(sd.id);
         document.getElementById(`r-${sd.id}-spv-brisi`).onclick = () => brisi_spv(sd.id);
-        
+
         document.getElementById(`card-${sd.id}-javni`).style.display = !sd.p_sopstveni ? "" : "none";
         document.getElementById(`card-${sd.id}-sopstveni`).style.display = sd.p_sopstveni ? "" : "none";
 
