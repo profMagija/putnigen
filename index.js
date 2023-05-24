@@ -18,11 +18,11 @@ const SPV_FIELDS = (
 const JPV_FIELDS = 'od5 do5 jvp5 cp5 od6 do6 jvp6 cp6 od7 do7 jvp7 cp7 od8 do8 jvp8 cp8'.split(' ');
 
 const DNEVNICA_MAP = {
-    'Saradnik': 850 * 2,
-    'Stručni': 850,
-    'Mentor': 850 * 2,
-    'Asistent': 850,
-    'Rukovodilac': 850 * 2,
+    'Saradnik': 1000 * 2,
+    'Stručni': 1000,
+    'Mentor': 1000 * 2,
+    'Asistent': 1000,
+    'Rukovodilac': 1000 * 2,
 }
 
 let TEMPLATE = '';
